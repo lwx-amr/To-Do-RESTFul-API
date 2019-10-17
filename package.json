@@ -1,0 +1,31 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "Node.js app to manage my todo list",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lwx-amr/ToDo-App.git"
+  },
+  "keywords": [
+    "Node.js",
+    "JS",
+    "CSS",
+    "HTML",
+    "Ajax"
+  ],
+  "author": "Amr Hussien",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lwx-amr/ToDo-App/issues"
+  },
+  "homepage": "https://github.com/lwx-amr/ToDo-App#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^2.7.1",
+    "express": "^4.17.1"
+  }
+}
