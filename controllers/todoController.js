@@ -1,5 +1,5 @@
 // Dummy Data
-var data = [{item: 'get milk'},{item: 'Walk dog'},{item: 'Kick some coding ass'}];
+//var data = [{item: 'get milk'},{item: 'Walk dog'},{item: 'Kick some coding ass'}];
 
 // Body Parser to handle POST requests
 const bodyParser = require('body-parser');
@@ -23,20 +23,27 @@ var todoSchema = new mongoose.Schema({
 var Todo = mongoose.model('Todo',todoSchema);
 
 // Add First Item
-var itemOne = Todo({item: 'get milk'}).save(function(err){
-  if(err) throw err;
-  console.log('Item Saved!!');
-});
+// var itemOne = Todo({item: 'Get some sleep'}).save(function(err){
+//   if(err) throw err;
+//   console.log('Item Saved!!');
+// });
 
 module.exports = function (app) {
 
   app.get('/todo',function(req, res){
-      res.render('todo',{'todos':data});
+      // Get data from mongodb
+      Todo.find({}, function(err, data){ // retrive all items
+        if(err) throw err;
+        res.render('todo',{todos:data});
+      });
   });
 
   app.post('/todo', urlencodedParser,function(req, res){
-    data.push(req.body);
-    res.status(200).send(data);
+    // Get item from input and add it to database
+    var itemOne = Todo(req.body).save(function(err, data){
+      if(err) throw err;
+      res.status(200).send(data);
+    });
   });
 
   app.put('/todo',function(req, res){
@@ -44,10 +51,11 @@ module.exports = function (app) {
   });
 
   app.delete('/todo/:item',function(req, res){
-    data = data.filter(function(todo){
-      return todo.item.replace(/ /g,'-') !== req.params.item;
+    // Delete item from mongodb
+    Todo.find({item: req.params.item.replace(/\-/g," ")}).deleteOne(function(err, data){
+      if (err) throw err;
+      res.status(200).send(data);
     });
-    res.status(200).send(data);
   });
 
 };
