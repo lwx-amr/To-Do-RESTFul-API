@@ -3,7 +3,7 @@ const express = require('express');
 const config = require('config');
 const cors = require('cors');
 const helmet = require('helmet');
-const RateLimit = require('express-rate-limit');
+const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
 
 // Requiring project files
@@ -26,20 +26,21 @@ app.use(cors(corsOptions));
 app.use(helmet());
 
 // Using Limiter to prevent attacks
-const rateLimit = new RateLimit({
+const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 min is the time of our cycle
   max: 100, // Max number of requests
   delayMs: 0, // Disable delay between each request
   // Each ip will be able to make only 100 request in each 15 min with no delay between requests
 });
-rateLimit();
+// apply to all requests
+app.use(apiLimiter);
 
 // Setup mongoose connection
 mongoose.Promise = global.Promise;
 mongoose.connect(db, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-});
+}).catch((err) => console.log({ error: err }));
 
 // Calling api routes
 app.use(prefix, notesRoute);
