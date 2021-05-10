@@ -1,10 +1,12 @@
 {
   "name": "todo",
   "version": "1.0.0",
-  "description": "Node.js app to manage my todo list",
+  "description": "Node.js REST api for managing my todo list",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./src/service.js",
+    "prod": "node ./src/service.js",
+    "dev": "DEBUG=server:debug nodemon ./src/service.js"
   },
   "repository": {
     "type": "git",
@@ -12,10 +14,7 @@
   },
   "keywords": [
     "Node.js",
-    "JS",
-    "CSS",
-    "HTML",
-    "Ajax"
+    "REST"
   ],
   "author": "Amr Hussien",
   "license": "ISC",
@@ -25,8 +24,18 @@
   "homepage": "https://github.com/lwx-amr/ToDo-App#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "ejs": "^2.7.1",
+    "config": "^3.3.6",
+    "cors": "^2.8.5",
+    "dotenv": "^9.0.1",
     "express": "^4.17.1",
-    "mongoose": "^5.7.5"
+    "express-rate-limit": "^5.2.6",
+    "helmet": "^4.6.0",
+    "mongoose": "^5.12.7"
+  },
+  "devDependencies": {
+    "eslint": "^7.26.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "nodemon": "^2.0.7"
   }
 }
