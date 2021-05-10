@@ -9,7 +9,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 const mongoose = require('mongoose');
 
 // Connect to database
-mongoose.connect('mongodb+srv://amrister:mngbfhty64@todo-xp4ta.mongodb.net/test?retryWrites=true&w=majority', {
+mongoose.connect('', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
