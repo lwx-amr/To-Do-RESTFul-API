@@ -1,7 +1,7 @@
 {
   "name": "todo",
   "version": "1.0.0",
-  "description": "Node.js app to manage my todo list",
+  "description": "Node.js REST api for managing my todo list",
   "main": "app.js",
   "scripts": {
     "start": "node ./src/service.js",
@@ -14,10 +14,7 @@
   },
   "keywords": [
     "Node.js",
-    "JS",
-    "CSS",
-    "HTML",
-    "Ajax"
+    "REST"
   ],
   "author": "Amr Hussien",
   "license": "ISC",
