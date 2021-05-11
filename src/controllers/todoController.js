@@ -35,7 +35,7 @@ const deleteNote = (req, res) => {
 
 // Handling all not found requests
 const invalidRequest = (req, res) => {
-  res.send('<h1>PAGE NOT FOUND</h1>');
+  res.json({ msg: 'Invalid request' });
 };
 
 module.exports = {
