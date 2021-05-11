@@ -1,13 +1,17 @@
 // Requiring Modules
-const express = require('express');
-const config = require('config');
-const cors = require('cors');
-const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
-const mongoose = require('mongoose');
+import express from 'express';
+import config from 'config';
+import cors from 'cors';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
+import mongoose from 'mongoose';
+import debug from 'debug';
+import bodyParser from 'body-parser';
 
 // Requiring project files
-const notesRoute = require('./routes/notesRoute');
+import notesRoute from './routes/notesRoute';
+
+bodyParser.urlencoded({ extended: false });
 
 // load configurations
 const port = config.get('app.port');
@@ -18,6 +22,13 @@ const corsOptions = {
   origin: config.get('client.url'),
   credentials: true,
 };
+
+// Init loggers
+const httpLogger = debug('app:http-server');
+const dbLogger = debug('app:db');
+
+// Using body-parser
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Enable cors
 app.use(cors(corsOptions));
@@ -32,20 +43,15 @@ const apiLimiter = rateLimit({
   delayMs: 0, // Disable delay between each request
   // Each ip will be able to make only 100 request in each 15 min with no delay between requests
 });
-// apply to all requests
-app.use(apiLimiter);
+app.use(apiLimiter); // apply to all requests
 
 // Setup mongoose connection
 mongoose.Promise = global.Promise;
-mongoose.connect(db, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).catch((err) => console.log({ error: err }));
+mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .catch((err) => dbLogger({ error: err }));
 
 // Calling api routes
 app.use(prefix, notesRoute);
 
 // Running server
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+app.listen(port, () => httpLogger(`Server is running on port ${port}`));
