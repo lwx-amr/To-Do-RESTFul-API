@@ -11,8 +11,6 @@ import bodyParser from 'body-parser';
 // Requiring project files
 import notesRoute from './routes/notesRoute';
 
-bodyParser.urlencoded({ extended: false });
-
 // load configurations
 const port = config.get('app.port');
 const db = config.get('database.url');
@@ -27,7 +25,7 @@ const corsOptions = {
 const httpLogger = debug('app:http-server');
 const dbLogger = debug('app:db');
 
-// Using body-parser
+// Enable body-parser
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Enable cors
@@ -49,6 +47,11 @@ app.use(apiLimiter); // apply to all requests
 mongoose.Promise = global.Promise;
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch((err) => dbLogger({ error: err }));
+
+// Simple main api url response
+app.get('/', (req, res) => {
+  res.json({ message: 'Welcome, this is our great restful api.' });
+});
 
 // Calling api routes
 app.use(prefix, notesRoute);

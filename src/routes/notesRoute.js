@@ -1,9 +1,27 @@
+/* eslint-disable import/named */
 import { Router } from 'express';
+
+import {
+  getAllUserNotes, addNewNote, getNote, updateNote, deleteNote, invalidRequest,
+} from '../controllers/todoController';
 
 const router = Router();
 
-router.get('/', (req, res) => {
-  res.json({ message: 'Welcome, this is our great service' });
-});
+// Crud operations for note
+router.route('/note/:id')
+  .get(getNote)
+  .delete(deleteNote)
+  .put(updateNote);
+
+router.route('/note')
+  .post(addNewNote);
+
+// Return all notes for certain user
+router.route('/:id/note')
+  .get(getAllUserNotes);
+
+// catch all other routes
+router.route('*')
+  .get(invalidRequest);
 
 export default router;
