@@ -1,60 +1,48 @@
-// Dummy Data
-// var data = [{item: 'get milk'},{item: 'Walk dog'},{item: 'Kick some coding ass'}];
+import NoteModel from '../repository/noteModel';
 
-// Body Parser to handle POST requests
-const bodyParser = require('body-parser');
+// Display all notes in workspace from recent to old
+const getAllUserNotes = (req, res) => {
+  NoteModel.find({ userID: req.params.id }).sort({ created_date: -1 }) // by recent
+    .then((results) => res.json(results))
+    .catch((err) => res.status(404).json(err));
+};
 
-const urlencodedParser = bodyParser.urlencoded({ extended: false });
+// Crud operations for note
+const addNewNote = (req, res) => {
+  const newNote = NoteModel(req.body);
+  newNote.save()
+    .then((note) => res.json(note))
+    .catch((err) => res.status(400).json(err));
+};
 
-// Database part
-const mongoose = require('mongoose');
+const getNote = (req, res) => {
+  NoteModel.findById(req.params.id)
+    .then((note) => res.json(note))
+    .catch((err) => res.status(400).json(err));
+};
 
-// Connect to database
-mongoose.connect('', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const updateNote = (req, res) => {
+  NoteModel.findByIdAndUpdate(req.body.id, req.body)
+    .then((data) => res.json(data))
+    .catch((err) => res.status(400).json(err));
+};
 
-// Create a Schema - like a blue print for our data
-const todoSchema = new mongoose.Schema({
-  item: String,
-});
+const deleteNote = (req, res) => {
+  NoteModel.deleteOne({ _id: req.params.id })
+    .then((result) => res.json(result))
+    .catch((err) => res.status(404).json(err));
+};
 
-// Create Model
-const Todo = mongoose.model('Todo', todoSchema);
+// Handling all not found requests
+const invalidRequest = (req, res) => {
+  res.send('<h1>PAGE NOT FOUND</h1>');
+};
 
-// Add First Item
-// var itemOne = Todo({item: 'Get some sleep'}).save(function(err){
-//   if(err) throw err;
-//   console.log('Item Saved!!');
-// });
-
-module.exports = function (app) {
-  app.get('/todo', (req, res) => {
-    // Get data from mongodb
-    Todo.find({}, (err, data) => { // retrive all items
-      if (err) throw err;
-      res.render('todo', { todos: data });
-    });
-  });
-
-  app.post('/todo', urlencodedParser, (req, res) => {
-    // Get item from input and add it to database
-    const itemOne = Todo(req.body).save((err, data) => {
-      if (err) throw err;
-      res.status(200).send(data);
-    });
-  });
-
-  app.put('/todo', (req, res) => {
-
-  });
-
-  app.delete('/todo/:item', (req, res) => {
-    // Delete item from mongodb
-    Todo.find({ item: req.params.item.replace(/\-/g, ' ') }).deleteOne((err, data) => {
-      if (err) throw err;
-      res.status(200).send(data);
-    });
-  });
+module.exports = {
+  getAllUserNotes,
+  addNewNote,
+  getNote,
+  updateNote,
+  deleteNote,
+  invalidRequest,
 };
