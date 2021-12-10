@@ -5,10 +5,11 @@
   "main": "app.js",
   "scripts": {
     "clean": "rm -rf ./build/*",
-    "babel-build" : "babel src -d ./build ./src",
+    "babel-build": "babel src -d ./build ./src",
     "build": "npm run clean && npm run babel-build",
-    "start": "npm run build && node ./build/service.js",
-    "dev": "DEBUG=app,app:* nodemon --exec babel-node ./src/service.js"
+    "start": "npm run build && NODE_ENV=prod node ./build/service.js",
+    "dev": "NODE_ENV=dev DEBUG=app,app:* nodemon --exec babel-node ./src/service.js",
+    "test": "NODE_ENV=test DEBUG=app,app:* mocha --require @babel/register ./test"
   },
   "repository": {
     "type": "git",
@@ -26,7 +27,7 @@
   },
   "homepage": "https://github.com/lwx-amr/ToDo-App#readme",
   "dependencies": {
-    "babel-preset-env": "^1.7.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "config": "^3.3.6",
     "cors": "^2.8.5",
@@ -35,13 +36,22 @@
     "express": "^4.17.1",
     "express-rate-limit": "^5.2.6",
     "helmet": "^4.6.0",
-    "mongoose": "^5.12.7"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.7",
+    "validator": "^13.7.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.14.0",
+    "@babel/node": "^7.13.13",
+    "@babel/preset-env": "^7.14.1",
+    "@babel/register": "^7.13.16",
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
     "eslint": "^7.26.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
+    "mocha": "^8.4.0",
     "nodemon": "^2.0.7"
   }
 }
