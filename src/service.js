@@ -10,6 +10,7 @@ import bodyParser from 'body-parser';
 
 // Requiring project files
 import notesRoute from './routes/notesRoute';
+import authRoute from './routes/authRoutes';
 
 // load configurations
 const port = config.get('app.port');
@@ -27,6 +28,7 @@ const dbLogger = debug('app:db');
 
 // Enable body-parser
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
 
 // Enable cors
 app.use(cors(corsOptions));
@@ -45,7 +47,7 @@ app.use(apiLimiter); // apply to all requests
 
 // Setup mongoose connection
 mongoose.Promise = global.Promise;
-mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
   .catch((err) => dbLogger({ error: err }));
 
 // Simple main api url response
@@ -55,6 +57,10 @@ app.get('/', (req, res) => {
 
 // Calling api routes
 app.use(prefix, notesRoute);
+app.use(`${prefix}/auth`, authRoute);
 
 // Running server
 app.listen(port, () => httpLogger(`Server is running on port ${port}`));
+
+// For testing import
+export default app;

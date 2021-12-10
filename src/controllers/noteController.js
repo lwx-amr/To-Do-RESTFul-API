@@ -16,12 +16,19 @@ const getAllUserNotes = (req, res) => {
 
 // Crud operations for note
 const addNewNote = (req, res) => {
+  notesLogger(req.body);
   const newNote = NoteModel(req.body);
   newNote.save()
-    .then((note) => res.json(note))
+    .then((note) => res.json({
+      msg: 'Note is successfully add',
+      note,
+    }))
     .catch((err) => {
       notesLogger(err);
-      res.status(400).json({ msg: 'Bad request' });
+      res.status(400).json({
+        msg: 'Bad request',
+        errors: err.errors,
+      });
     });
 };
 

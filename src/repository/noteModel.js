@@ -1,8 +1,8 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose from 'mongoose';
 
 const NoteSchema = mongoose.Schema({
   userID: {
-    type: Schema.Types.ObjectId,
+    type: String,
     required: true,
   },
   text: {
