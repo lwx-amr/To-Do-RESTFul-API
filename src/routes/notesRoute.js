@@ -3,7 +3,7 @@ import { Router } from 'express';
 
 import {
   getAllUserNotes, addNewNote, getNote, updateNote, deleteNote, invalidRequest,
-} from '../controllers/todoController';
+} from '../controllers/noteController';
 
 const router = Router();
 
