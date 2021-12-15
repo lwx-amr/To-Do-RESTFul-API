@@ -47,7 +47,9 @@ app.use(apiLimiter); // apply to all requests
 
 // Setup mongoose connection
 mongoose.Promise = global.Promise;
-mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
+mongoose.connect(db, {
+  useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true,
+})
   .catch((err) => dbLogger({ error: err }));
 
 // Simple main api url response
