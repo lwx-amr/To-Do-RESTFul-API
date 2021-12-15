@@ -9,7 +9,7 @@
     "build": "npm run clean && npm run babel-build",
     "start": "npm run build && NODE_ENV=prod node ./build/service.js",
     "dev": "NODE_ENV=dev DEBUG=app,app:* nodemon --exec babel-node ./src/service.js",
-    "test": "NODE_ENV=test DEBUG=app,app:* mocha --require @babel/register ./test"
+    "test": "NODE_ENV=test DEBUG=app,app:test mocha --require @babel/register ./test/*"
   },
   "repository": {
     "type": "git",
@@ -48,10 +48,12 @@
     "@babel/register": "^7.13.16",
     "chai": "^4.3.4",
     "chai-http": "^4.3.0",
+    "core-js": "^3.20.0",
     "eslint": "^7.26.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
     "mocha": "^8.4.0",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "regenerator-runtime": "^0.13.9"
   }
 }
