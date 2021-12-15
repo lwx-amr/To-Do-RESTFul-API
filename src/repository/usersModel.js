@@ -2,7 +2,9 @@ import { Schema, model } from 'mongoose';
 import { isEmail } from 'validator';
 import { hash, compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-import { get } from 'config';
+import config from 'config';
+
+const jwtKey = config.get('token.jwtKey');
 
 const userSchema = Schema({
   firstName: {
@@ -32,12 +34,10 @@ const userSchema = Schema({
     minlength: 8,
     trim: true,
   },
-  tokens: [{
-    token: {
-      type: String,
-      required: true,
-    },
-  }],
+  token: {
+    type: String,
+    required: false,
+  },
   created_date: {
     type: Date,
     default: Date.now,
@@ -67,8 +67,8 @@ userSchema.methods.generateAuthToken = async function () {
     id: user.id.toString(),
     email: user.email,
   };
-  const token = sign(payload, get('token.jwtKey'));
-  user.tokens = user.tokens.concat({ token });
+  const token = sign(payload, jwtKey);
+  user.token = token;
   await user.save();
   return token;
 };
@@ -81,7 +81,6 @@ userSchema.methods.toJSON = function () {
   publicUserData.tokens = undefined;
   return publicUserData;
 };
-
 const userModel = model('users', userSchema);
 
 export default userModel;

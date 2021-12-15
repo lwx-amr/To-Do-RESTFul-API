@@ -1,6 +1,7 @@
 import express from 'express';
 
 import {
+  // eslint-disable-next-line import/named
   login, checkAuth, logOut, registerUser,
 } from '../controllers/authController';
 
