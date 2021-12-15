@@ -1,9 +1,9 @@
 import debug from 'debug';
 import { verify } from 'jsonwebtoken';
-import { get } from 'config';
+import config from 'config';
 import UsersModel from '../repository/usersModel';
 
-const authLogger = debug('app:notes');
+const authLogger = debug('app:authController');
 
 // Register user in database
 const registerUser = (req, res) => {
@@ -30,8 +30,8 @@ const login = (req, res) => {
     httpOnly: true,
   };
   UsersModel.findByCredentials(email, password)
-    .then((user) => { user.generateAuthToken(); })
-    .then((token) => { res.cookie('app-jwt', token, cookieOptions).send({ token }); })
+    .then((user) => user.generateAuthToken())
+    .then((token) => res.header('app-jwt', token, cookieOptions).json({ token }))
     .catch((err) => {
       authLogger(err);
       res.status(400).json({
@@ -43,31 +43,33 @@ const login = (req, res) => {
 
 // Middleware to prevent unauthorized users
 const checkAuth = (req, res, next) => {
-  const token = req.cookies['app-jwt'];
-  if (!token) { res.redirect(200, '/login'); }
-  const decodedToken = verify(token, get('token.jwtKey'));
-  UsersModel.findOne({ _id: decodedToken.id, 'tokens.token': token })
+  const jwtKey = config.get('token.jwtKey');
+  const token = req.headers['app-jwt'];
+  if (!token) { res.status(400).json({ msg: 'Unauthorized request' }); }
+  const decodedToken = verify(token, jwtKey, (err, decoded) => {
+    if (err) res.status(400).json({ msg: 'user token is not valid' });
+    return decoded;
+  });
+  UsersModel.findOne({ _id: decodedToken.id, token })
     .then((user) => {
-      req.token = token;
       req.user = user;
       next();
     })
     .catch((err) => {
       authLogger(err);
-      res.status(400).json({
-        msg: 'Unauthorized request',
-        errors: err.errors,
-      });
+      res.status(400).json({ msg: 'Unauthorized request' });
     });
 };
 
 const logOut = (req, res) => {
-  const { user, token } = req;
-  user.tokens = user.tokens.filter((t) => t.token !== token);
+  const { user } = req;
+  authLogger(user);
+  user.token = '';
   user.save()
     .then(() => {
-      res.clearCookie('app-jwt');
-      res.send();
+      res.json({
+        msg: 'logged out',
+      });
     })
     .catch((err) => {
       authLogger(err);
