@@ -16,13 +16,9 @@ const getAllUserNotes = (req, res) => {
 
 // Crud operations for note
 const addNewNote = (req, res) => {
-  notesLogger(req.body);
   const newNote = NoteModel(req.body);
   newNote.save()
-    .then((note) => res.json({
-      msg: 'Note is successfully add',
-      note,
-    }))
+    .then((note) => res.json(note))
     .catch((err) => {
       notesLogger(err);
       res.status(400).json({
@@ -42,8 +38,8 @@ const getNote = (req, res) => {
 };
 
 const updateNote = (req, res) => {
-  NoteModel.findByIdAndUpdate(req.params.id, req.body)
-    .then((data) => res.json(data))
+  NoteModel.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
+    .then((note) => res.json(note))
     .catch((err) => {
       notesLogger(err);
       res.status(400).json({ msg: 'Bad request' });
@@ -52,7 +48,7 @@ const updateNote = (req, res) => {
 
 const deleteNote = (req, res) => {
   NoteModel.deleteOne({ _id: req.params.id })
-    .then((result) => res.json(result))
+    .then((note) => res.json(note))
     .catch((err) => {
       notesLogger(err);
       res.status(400).json({ msg: 'Bad request' });
