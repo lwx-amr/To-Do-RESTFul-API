@@ -4,9 +4,20 @@
 
 <br>
 
-## Description
+## Introduction
 
 To-Do RESTFUl API is an API for managing the server-side work of your To-Do applications. If you have some UI for a To-Do application you can easily use my API for making your application alive and allowing your users to control their notes. It's open-source so if you want to add some feature, edit an existing one, or even fix a bug you found go ahead and make a PR or reach me and I will update it as soon as possible.
+
+The API provides the following features:
+* Creating a new user
+* Login with user credentials
+* Logout user
+* CRUD operations for user notes
+  - GET user notes
+  - GET certain note
+  - POST note
+  - PUT note
+  - DELETE note
 
 <br>
 
@@ -21,3 +32,9 @@ To-Do RESTFUl API is an API for managing the server-side work of your To-Do appl
 * #### Mocha: JavaScript test framework running on Node.js.
 * #### ESLint: A tool for patterns reporting in ECMAScript/JavaScript code and making code more consistent.
 * #### Heroku: Platform as a service (PaaS) and there is a live instance of my API master branch deployed and running on it.
+
+<br>
+
+## Authentication
+
+First, the user should signup and then log in with his credentials, a token is returned as a response from the API, this token should be included in the header of all user coming requests as "header["api-jwt"]=token" to manage authentication with the API.
