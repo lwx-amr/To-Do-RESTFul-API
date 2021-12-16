@@ -38,3 +38,68 @@ The API provides the following features:
 ## Authentication
 
 First, the user should signup and then log in with his credentials, a token is returned as a response from the API, this token should be included in the header of all user coming requests as "header["api-jwt"]=token" to manage authentication with the API.
+
+<br>
+
+## Request
+
+#### Request URL
+Request to this API consists of base url and API method. Example: <code>http://{baseURL}/api/v1/{method}</code>.
+For consistency I will assume that in all the examples here the API is running on the local host so now the base URL: <code>http://localhost:{port}/api/v1</code>
+
+<br>
+
+## NOTES Requests
+
+<br>
+
+### GET / notes of some user
+Request base URL: <code>http://localhost:{port}/api/v1/{userID}/note</code>
+<br>
+Request example: <code>http://localhost:3006/api/v1/20160313/note</code>
+<br>
+<br>
+The reponse:
+<br>
+<pre>
+<code>[{
+    "_id" : ObjectId("61ba5f6af2338ae9b7e8baad"),
+    "userID" : "20160313",
+    "text" : "Some Important Test",
+    "label" : "IS",
+    "created_date" : ISODate("2021-12-15T21:34:34.943Z"),
+    "__v" : 0
+},
+{
+    "_id" : ObjectId("61ba5f6af2338ae9b7e8baad"),
+    "userID" : "20160313",
+    "text" : "Some random text",
+    "label" : "CS",
+    "created_date" : ISODate("2021-12-15T21:34:34.943Z"),
+    "__v" : 0
+}]</code>
+</pre>
+The return is an array with 2 enrties (notes) added by the user with id 20160313
+<br>
+<hr>
+
+### GET / certain note with note_id
+
+Request base URL: <code>http://localhost:{port}/api/v1/note/:node_id</code>
+<br>
+Request example: <code>http://localhost:3006/api/v1/note/61ba5f6af2338ae9b7e8baad</code>
+<br>
+<br>
+The reponse:
+<br>
+<pre>
+<code>{
+    "_id" : ObjectId("61ba5f6af2338ae9b7e8baad"),
+    "userID" : "20160313",
+    "text" : "Some Important Test",
+    "label" : "IS",
+    "created_date" : ISODate("2021-12-15T21:34:34.943Z"),
+    "__v" : 0
+}</code>
+</pre>
+The return is a json object of the note with the id "61ba5f6af2338ae9b7e8baad".
