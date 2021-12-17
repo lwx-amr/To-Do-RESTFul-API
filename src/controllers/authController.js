@@ -26,12 +26,9 @@ const registerUser = (req, res) => {
 // Function to check login
 const login = (req, res) => {
   const { email, password } = req.body;
-  const cookieOptions = {
-    httpOnly: true,
-  };
   UsersModel.findByCredentials(email, password)
-    .then((user) => user.generateAuthToken())
-    .then((token) => res.header('app-jwt', token, cookieOptions).json({ token }))
+    .then((user) => ((user.token) ? user.token : user.generateAuthToken()))
+    .then((token) => res.json({ token }))
     .catch((err) => {
       authLogger(err);
       res.status(400).json({
@@ -61,7 +58,7 @@ const checkAuth = (req, res, next) => {
     });
 };
 
-const logOut = (req, res) => {
+const logout = (req, res) => {
   const { user } = req;
   authLogger(user);
   user.token = '';
@@ -81,5 +78,5 @@ const logOut = (req, res) => {
 };
 
 module.exports = {
-  login, checkAuth, registerUser, logOut,
+  login, checkAuth, registerUser, logout,
 };

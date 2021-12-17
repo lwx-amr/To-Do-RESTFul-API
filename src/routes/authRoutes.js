@@ -2,25 +2,21 @@ import express from 'express';
 
 import {
   // eslint-disable-next-line import/named
-  login, checkAuth, logOut, registerUser,
+  login, logOut, registerUser,
 } from '../controllers/authController';
 
 const router = express.Router();
 
 // Signup Route
-router.route('/signup')
+router.route('/user')
   .post(registerUser);
 
 // Login Route
-router.route('/login')
+router.route('/token')
   .post(login);
 
-// Check logged before
-router.route('/init')
-  .post(checkAuth);
-
 // logout user
-router.route('/logout')
-  .post(checkAuth, logOut);
+router.route('/token')
+  .delete(logOut);
 
 module.exports = router;
