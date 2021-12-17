@@ -55,5 +55,8 @@
     "mocha": "^8.4.0",
     "nodemon": "^2.0.7",
     "regenerator-runtime": "^0.13.9"
-  }
+  },
+  "browserslist": [
+    "last 3 chrome versions"
+   ]
 }
