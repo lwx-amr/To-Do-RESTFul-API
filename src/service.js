@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 // Requiring Modules
 import express from 'express';
 import config from 'config';
@@ -7,6 +8,8 @@ import rateLimit from 'express-rate-limit';
 import mongoose from 'mongoose';
 import debug from 'debug';
 import bodyParser from 'body-parser';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
 // Requiring project files
 import notesRoute from './routes/notesRoute';

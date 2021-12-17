@@ -1,8 +1,6 @@
 /* eslint-disable no-undef */
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import 'core-js/stable';
-import 'regenerator-runtime/runtime';
 
 import Note from '../../src/repository/noteModel';
 import app from '../../src/service';
