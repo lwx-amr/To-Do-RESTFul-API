@@ -6,7 +6,7 @@
 
 ## Introduction
 
-To-Do RESTFUl API is an API for managing the server-side work of your To-Do applications. If you have some UI for a To-Do application you can easily use my API for making your application alive and allowing your users to control their notes. It's open-source so if you want to add some feature, edit an existing one, or even fix a bug you found go ahead and make a PR or reach me and I will update it as soon as possible.
+To-Do RESTFUl API is an API for managing the server-side work of your To-Do applications. If you have some UI for a To-Do application you can easily use my API for making your application alive and allowing your users to control their notes.If you want to add some feature, edit an existing one, or even fix a bug you found go ahead and make a PR or reach me and I will update it as soon as possible.
 
 The API provides the following features:
 * Creating a new user
@@ -37,7 +37,7 @@ The API provides the following features:
 
 ## Authentication
 
-First, the user should signup and then log in with his credentials, a token is returned as a response from the API, this token should be included in the header of all user coming requests as "header["api-jwt"]=token" to manage authentication with the API.
+First, the user should signup and then log in with his credentials, a token is returned as a response from the API, this token should be included in the header of all user coming requests as "header["api-jwt"]={token}" to verify authentication with the API.
 
 <br>
 
@@ -45,7 +45,7 @@ First, the user should signup and then log in with his credentials, a token is r
 
 #### Request URL
 Request to this API consists of base url and API method. Example: <code>http://{baseURL}/api/v1/{method}</code>.
-For consistency I will assume that in all the examples here the API is running on the local host so now the base URL: <code>http://localhost:{port}/api/v1</code>
+This API is deployed on Heroku so for consistency I will use Heroku base url in all the examples here so now the base URL: <code>https://to-do-restapi.herokuapp.com/api/v1</code>
 
 <br>
 
@@ -54,9 +54,9 @@ For consistency I will assume that in all the examples here the API is running o
 <br>
 
 ### GET / notes of some user
-Request base URL: <code>http://localhost:{port}/api/v1/{userID}/note</code>
+Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/{userID}/note</code>
 <br>
-Request example: <code>http://localhost:3006/api/v1/20160313/note</code>
+Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/20160313/note</code>
 <br>
 <br>
 The reponse:
@@ -85,9 +85,9 @@ The return is an array with 2 enrties (notes) added by the user with id 20160313
 
 ### GET / certain note with note_id
 
-Request base URL: <code>http://localhost:{port}/api/v1/note/:node_id</code>
+Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/note/:node_id</code>
 <br>
-Request example: <code>http://localhost:3006/api/v1/note/61ba5f6af2338ae9b7e8baad</code>
+Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/note/61ba5f6af2338ae9b7e8baad</code>
 <br>
 <br>
 The reponse:
