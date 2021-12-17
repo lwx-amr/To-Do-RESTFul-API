@@ -23,6 +23,22 @@ const registerUser = (req, res) => {
     });
 };
 
+// Check if entered email is not used by another user
+const checkEmailAvailability = (req, res, next) => {
+  const { email } = req.body;
+  UsersModel.findOne({ email })
+    .then((user) => {
+      if (user) throw new Error('Email is not available');
+      next();
+    })
+    .catch((err) => {
+      authLogger(err);
+      res.status(400).json({
+        msg: 'This email is used by another user',
+      });
+    });
+};
+
 // Function to check login
 const login = (req, res) => {
   const { email, password } = req.body;
@@ -72,11 +88,9 @@ const logout = (req, res) => {
     .then((decodedToken) => UsersModel.findOne({ _id: decodedToken.id, token }))
     .then((user) => {
       if (user) {
-        authLogger(user);
         user.token = '';
         user.save();
       } else {
-        authLogger(user);
         throw new Error('not logged in');
       }
     })
@@ -95,5 +109,5 @@ const logout = (req, res) => {
 };
 
 module.exports = {
-  login, checkAuth, registerUser, logout,
+  login, checkAuth, registerUser, logout, checkEmailAvailability,
 };

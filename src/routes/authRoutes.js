@@ -2,14 +2,14 @@ import express from 'express';
 
 import {
   // eslint-disable-next-line import/named
-  login, logout, registerUser,
+  login, logout, registerUser, checkEmailAvailability,
 } from '../controllers/authController';
 
 const router = express.Router();
 
 // Signup Route
 router.route('/user')
-  .post(registerUser);
+  .post(checkEmailAvailability, registerUser);
 
 // Login Route
 router.route('/token')
