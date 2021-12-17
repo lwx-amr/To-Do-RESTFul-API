@@ -38,16 +38,24 @@ const login = (req, res) => {
     });
 };
 
-// Middleware to prevent unauthorized users
-const checkAuth = (req, res, next) => {
+// Decode JWT Token
+const decodeRequestToken = (req, res, token) => {
   const jwtKey = config.get('token.jwtKey');
-  const token = req.headers['app-jwt'];
   if (!token) { res.status(400).json({ msg: 'Unauthorized request' }); }
-  const decodedToken = verify(token, jwtKey, (err, decoded) => {
-    if (err) res.status(400).json({ msg: 'user token is not valid' });
-    return decoded;
+
+  return new Promise((resolve, reject) => {
+    verify(token, jwtKey, (err, decoded) => {
+      if (err) reject(err);
+      else resolve(decoded);
+    });
   });
-  UsersModel.findOne({ _id: decodedToken.id, token })
+};
+
+// Middleware to prevent unauthorized users
+const checkAuth = async (req, res, next) => {
+  const token = req.headers['app-jwt'];
+  decodeRequestToken(req, res, token)
+    .then((decodedToken) => UsersModel.findOne({ _id: decodedToken.id, token }))
     .then((user) => {
       req.user = user;
       next();
@@ -59,10 +67,19 @@ const checkAuth = (req, res, next) => {
 };
 
 const logout = (req, res) => {
-  const { user } = req;
-  authLogger(user);
-  user.token = '';
-  user.save()
+  const token = req.headers['app-jwt'];
+  decodeRequestToken(req, res, token)
+    .then((decodedToken) => UsersModel.findOne({ _id: decodedToken.id, token }))
+    .then((user) => {
+      if (user) {
+        authLogger(user);
+        user.token = '';
+        user.save();
+      } else {
+        authLogger(user);
+        throw new Error('not logged in');
+      }
+    })
     .then(() => {
       res.json({
         msg: 'logged out',

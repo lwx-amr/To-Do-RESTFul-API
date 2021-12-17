@@ -2,7 +2,7 @@ import express from 'express';
 
 import {
   // eslint-disable-next-line import/named
-  login, logOut, registerUser,
+  login, logout, registerUser,
 } from '../controllers/authController';
 
 const router = express.Router();
@@ -17,6 +17,6 @@ router.route('/token')
 
 // logout user
 router.route('/token')
-  .delete(logOut);
+  .delete(logout);
 
 module.exports = router;
