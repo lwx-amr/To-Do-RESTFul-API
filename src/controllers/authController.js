@@ -7,7 +7,7 @@ const authLogger = debug('app:authController');
 
 // Register user in database
 const registerUser = (req, res) => {
-  authLogger(req.body);
+  // authLogger(req.body);
   const newUser = UsersModel(req.body);
   newUser.save()
     .then((user) => res.json({
@@ -15,7 +15,7 @@ const registerUser = (req, res) => {
       user,
     }))
     .catch((err) => {
-      authLogger(err);
+      // authLogger(err);
       res.status(400).json({
         msg: 'Bad request',
         errors: err.errors,
@@ -32,7 +32,7 @@ const checkEmailAvailability = (req, res, next) => {
       next();
     })
     .catch((err) => {
-      authLogger(err);
+      // authLogger(err);
       res.status(400).json({
         msg: 'This email is used by another user',
       });
@@ -46,7 +46,7 @@ const login = (req, res) => {
     .then((user) => ((user.token) ? user.token : user.generateAuthToken()))
     .then((token) => res.json({ token }))
     .catch((err) => {
-      authLogger(err);
+      // authLogger(err);
       res.status(400).json({
         msg: 'Credentials are not valid',
         errors: err.errors,
@@ -68,7 +68,7 @@ const decodeRequestToken = (req, res, token) => {
 };
 
 // Middleware to prevent unauthorized users
-const checkAuth = async (req, res, next) => {
+/* const checkAuth = async (req, res, next) => {
   const token = req.headers['app-jwt'];
   decodeRequestToken(req, res, token)
     .then((decodedToken) => UsersModel.findOne({ _id: decodedToken.id, token }))
@@ -77,10 +77,10 @@ const checkAuth = async (req, res, next) => {
       next();
     })
     .catch((err) => {
-      authLogger(err);
+      // authLogger(err);
       res.status(400).json({ msg: 'Unauthorized request' });
     });
-};
+}; */
 
 const logout = (req, res) => {
   const token = req.headers['app-jwt'];
@@ -101,7 +101,7 @@ const logout = (req, res) => {
       });
     })
     .catch((err) => {
-      authLogger(err);
+      // authLogger(err);
       res.status(400).json({
         msg: 'Invalid token',
         errors: err.errors,
@@ -110,5 +110,5 @@ const logout = (req, res) => {
 };
 
 module.exports = {
-  login, checkAuth, registerUser, logout, checkEmailAvailability,
+  login, registerUser, logout, checkEmailAvailability,
 };

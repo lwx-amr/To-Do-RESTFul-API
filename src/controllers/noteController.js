@@ -9,7 +9,7 @@ const getAllUserNotes = (req, res) => {
   NoteModel.find({ userID: req.params.id }).sort({ created_date: -1 }) // by recent
     .then((results) => res.json(results))
     .catch((err) => {
-      notesLogger(err);
+      // notesLogger(err);
       res.status(400).json({ msg: 'Bad request' });
     });
 };
@@ -20,7 +20,7 @@ const addNewNote = (req, res) => {
   newNote.save()
     .then((note) => res.json(note))
     .catch((err) => {
-      notesLogger(err);
+      // notesLogger(err);
       res.status(400).json({
         msg: 'Bad request',
         errors: err.errors,
@@ -32,7 +32,7 @@ const getNote = (req, res) => {
   NoteModel.findById(req.params.id)
     .then((note) => res.json(note))
     .catch((err) => {
-      notesLogger(err);
+      // notesLogger(err);
       res.status(400).json({ msg: 'Bad request' });
     });
 };
@@ -41,7 +41,7 @@ const updateNote = (req, res) => {
   NoteModel.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
     .then((note) => res.json(note))
     .catch((err) => {
-      notesLogger(err);
+      // notesLogger(err);
       res.status(400).json({ msg: 'Bad request' });
     });
 };
@@ -50,7 +50,7 @@ const deleteNote = (req, res) => {
   NoteModel.deleteOne({ _id: req.params.id })
     .then((note) => res.json(note))
     .catch((err) => {
-      notesLogger(err);
+      // notesLogger(err);
       res.status(400).json({ msg: 'Bad request' });
     });
 };
