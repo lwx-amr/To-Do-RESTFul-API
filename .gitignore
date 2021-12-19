@@ -104,7 +104,7 @@ dist
 .tern-port
 
 #babel compiled files
-build
+build/
 
 #Istanbul coverage folder
-coverage
+coverage/
