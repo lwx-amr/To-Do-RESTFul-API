@@ -48,7 +48,7 @@ const login = (req, res) => {
     .catch((err) => {
       authLogger(err);
       res.status(400).json({
-        msg: 'Bad request',
+        msg: 'Credentials are not valid',
         errors: err.errors,
       });
     });
@@ -88,6 +88,7 @@ const logout = (req, res) => {
     .then((decodedToken) => UsersModel.findOne({ _id: decodedToken.id, token }))
     .then((user) => {
       if (user) {
+        // eslint-disable-next-line no-param-reassign
         user.token = '';
         user.save();
       } else {
@@ -96,13 +97,13 @@ const logout = (req, res) => {
     })
     .then(() => {
       res.json({
-        msg: 'logged out',
+        msg: 'Token removed successfully',
       });
     })
     .catch((err) => {
       authLogger(err);
       res.status(400).json({
-        msg: 'Bad request',
+        msg: 'Invalid token',
         errors: err.errors,
       });
     });
