@@ -8,7 +8,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 import app from '../../src/service';
-import userModel from '../../src/repository/usersModel';
+import userModel from '../../src/repository/userModel';
 
 const authTestLogger = debug('app:test');
 // eslint-disable-next-line no-unused-vars

@@ -1,7 +1,7 @@
 import debug from 'debug';
 import { verify } from 'jsonwebtoken';
 import config from 'config';
-import UsersModel from '../repository/usersModel';
+import UsersModel from '../repository/userModel';
 
 const authLogger = debug('app:authController');
 
