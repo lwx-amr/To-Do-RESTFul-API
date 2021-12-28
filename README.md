@@ -6,7 +6,7 @@
 
 ## Introduction
 
-To-Do RESTFUl API is an API for managing the server-side work of your To-Do applications. If you have some UI for a To-Do application you can easily use my API for making your application alive and allowing your users to control their notes. If you want to add some feature, edit an existing one, or even fix a bug you found go ahead and make a PR or reach me and I will update it as soon as possible.
+To-Do RESTFUl API is an API for managing the server-side work of your To-Do applications. If you have a ready UI for a To-Do application you can easily use my API for making your application alive and allowing your users to control their notes. If you want to add some feature, edit an existing one, or even fix a bug you found go ahead and make a PR or reach me and I will update it as soon as possible.
 
 The API provides the following features:
 * Creating a new user
@@ -157,7 +157,7 @@ Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/note/61ba5f6af
 
 Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/auth/user</code>
 <br>
-Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/note</code>
+Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/auth/user</code>
 <br>
 ###### The request body should incude all the required values in The <a href="https://github.com/lwx-amr/To-Do-RESTFul-API/blob/master/src/repository/userModel.js" target="_blank">User Model</a>.
 <hr>
