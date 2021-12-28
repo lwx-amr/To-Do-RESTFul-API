@@ -12,7 +12,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 // Requiring project files
-import notesRoute from './routes/notesRoute';
+import notesRoute from './routes/noteRoute';
 import authRoute from './routes/authRoutes';
 
 // load configurations

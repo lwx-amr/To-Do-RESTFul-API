@@ -127,7 +127,7 @@ Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/auth/user</co
 <br>
 Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/note</code>
 <br>
-###### The request body should incude all the required values in The <a href="https://github.com/lwx-amr/To-Do-RESTFul-API/blob/master/src/repository/usersModel.js" target="_blank">User Model</a>.
+###### The request body should incude all the required values in The <a href="https://github.com/lwx-amr/To-Do-RESTFul-API/blob/master/src/repository/userModel.js" target="_blank">User Model</a>.
 <hr>
 
 #### POST / login to get user token
