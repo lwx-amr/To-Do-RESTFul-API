@@ -35,6 +35,38 @@ The API provides the following features:
 
 <br>
 
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm run dev`
+
+Runs the app in the development mode.<br />
+Open [http://localhost:3003](http://localhost:3003) to view it in the browser.
+
+The page will reload if you make edits.<br />
+You will also see any debug errors in the console.
+
+### `npm build`
+
+Builds the app for production to the `build` folder.<br />
+Your app is ready to be deployed!
+
+### `npm start`
+
+Calls `npm build` first then Runs the app in the production mode.<br />
+Open [http://localhost:3010](http://localhost:3010) to view it in the browser.
+
+### `npm test`
+
+Launches the test runner
+
+### `npm run coverage`
+
+Launches the test runner with the Istanbul code coverage tool to get information about how well your tests cover your code.
+
+<br>
+
 ## Authentication
 
 First, the user should signup and then log in with his credentials, a token is returned as a response from the API, this token should be included in the header of all user coming requests as "header["api-jwt"]={token}" to verify authentication with the API.
