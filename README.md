@@ -97,7 +97,7 @@ Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/note</code>
 <br>
 Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/note</code>
 <br>
-###### The request should incude all the required values in The <a href="https://github.com/lwx-amr/To-Do-RESTFul-API/blob/master/src/repository/noteModel.js" target="_blank">Note Model</a>.
+###### The request body should incude all the required values in The <a href="https://github.com/lwx-amr/To-Do-RESTFul-API/blob/master/src/repository/noteModel.js" target="_blank">Note Model</a>.
 <hr>
 
 #### PUT / update a certian note
@@ -106,7 +106,7 @@ Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/note/{note_id
 <br>
 Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/note/61ba5f6af2338ae9b7e8baad</code>
 <br>
-###### The request should not incude all the required values just the modified values
+###### The request body should not incude all the required values just the modified values
 <hr>
 
 #### DELETE / delete a certian note
@@ -115,3 +115,34 @@ Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/note/{note_id
 <br>
 Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/note/61ba5f6af2338ae9b7e8baad</code>
 <br>
+<br>
+<br>
+
+### Authentication Requests
+
+
+#### POST / add a new user
+
+Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/auth/user</code>
+<br>
+Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/note</code>
+<br>
+###### The request body should incude all the required values in The <a href="https://github.com/lwx-amr/To-Do-RESTFul-API/blob/master/src/repository/usersModel.js" target="_blank">User Model</a>.
+<hr>
+
+#### POST / login to get user token
+
+Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/auth/token</code>
+<br>
+Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/auth/token</code>
+<br>
+###### The request body should incude user credentials **(email, password)**.
+<hr>
+
+#### DELETE / delete a certian user token
+
+Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/auth/token</code>
+<br>
+Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/auth/token</code>
+<br>
+###### The request header should incude user token in ['app-jwt'] attribute.
