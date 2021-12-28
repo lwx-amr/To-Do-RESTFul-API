@@ -6,7 +6,7 @@
 
 ## Introduction
 
-To-Do RESTFUl API is an API for managing the server-side work of your To-Do applications. If you have some UI for a To-Do application you can easily use my API for making your application alive and allowing your users to control their notes.If you want to add some feature, edit an existing one, or even fix a bug you found go ahead and make a PR or reach me and I will update it as soon as possible.
+To-Do RESTFUl API is an API for managing the server-side work of your To-Do applications. If you have some UI for a To-Do application you can easily use my API for making your application alive and allowing your users to control their notes. If you want to add some feature, edit an existing one, or even fix a bug you found go ahead and make a PR or reach me and I will update it as soon as possible.
 
 The API provides the following features:
 * Creating a new user
@@ -45,15 +45,14 @@ First, the user should signup and then log in with his credentials, a token is r
 
 #### Request URL
 Request to this API consists of base url and API method. Example: <code>http://{baseURL}/api/v1/{method}</code>.
-This API is deployed on Heroku so for consistency I will use Heroku base url in all the examples here so now the base URL: <code>https://to-do-restapi.herokuapp.com/api/v1</code>
+<br>
+This API is deployed on Heroku so for consistency I will use Heroku base URL in all the examples here so now the base URL: <code>https://to-do-restapi.herokuapp.com/api/v1</code>
 
 <br>
 
-## NOTES Requests
+### NOTES Requests
 
-<br>
-
-### GET / notes of some user
+#### GET / get all notes of some user
 Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/{userID}/note</code>
 <br>
 Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/20160313/note</code>
@@ -83,23 +82,67 @@ The return is an array with 2 enrties (notes) added by the user with id 20160313
 <br>
 <hr>
 
-### GET / certain note with note_id
+#### GET / get a certain note with note_id
 
-Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/note/:node_id</code>
+Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/note/{note_id}</code>
 <br>
 Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/note/61ba5f6af2338ae9b7e8baad</code>
 <br>
 <br>
-The reponse:
+<hr>
+
+#### POST / add a new note
+
+Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/note</code>
 <br>
-<pre>
-<code>{
-    "_id" : ObjectId("61ba5f6af2338ae9b7e8baad"),
-    "userID" : "20160313",
-    "text" : "Some Important Test",
-    "label" : "IS",
-    "created_date" : ISODate("2021-12-15T21:34:34.943Z"),
-    "__v" : 0
-}</code>
-</pre>
-The return is a json object of the note with the id "61ba5f6af2338ae9b7e8baad".
+Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/note</code>
+<br>
+###### The request body should incude all the required values in The <a href="https://github.com/lwx-amr/To-Do-RESTFul-API/blob/master/src/repository/noteModel.js" target="_blank">Note Model</a>.
+<hr>
+
+#### PUT / update a certian note
+
+Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/note/{note_id}</code>
+<br>
+Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/note/61ba5f6af2338ae9b7e8baad</code>
+<br>
+###### The request body should not incude all the required values just the modified values
+<hr>
+
+#### DELETE / delete a certian note
+
+Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/note/{note_id}</code>
+<br>
+Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/note/61ba5f6af2338ae9b7e8baad</code>
+<br>
+<br>
+<br>
+
+### Authentication Requests
+
+
+#### POST / add a new user
+
+Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/auth/user</code>
+<br>
+Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/note</code>
+<br>
+###### The request body should incude all the required values in The <a href="https://github.com/lwx-amr/To-Do-RESTFul-API/blob/master/src/repository/usersModel.js" target="_blank">User Model</a>.
+<hr>
+
+#### POST / login to get user token
+
+Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/auth/token</code>
+<br>
+Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/auth/token</code>
+<br>
+###### The request body should incude user credentials **(email, password)**.
+<hr>
+
+#### DELETE / delete a certian user token
+
+Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/auth/token</code>
+<br>
+Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/auth/token</code>
+<br>
+###### The request header should incude user token in ['app-jwt'] attribute.
