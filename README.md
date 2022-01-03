@@ -24,7 +24,7 @@ The API provides the following features:
 ## Used Tools
 
 * #### Node.js: The whole server is developed using Node.js as a runtime environment.
-* #### Express.js: Express is the most common framemork for Node.js.
+* #### Express.js: Express is the most common framework for Node.js.
 * #### MongoDB: Mongo is the database used for this project and I used MongoDB Atlas as a Cloud-hosted MongoDB service.
 * #### Mongoose: A great ORM for MongoDB as it provides a straightforward, schema-based solution to model application data.
 * #### JWT: I used JSONWebToken to control the authentication process of the API requests.
@@ -69,7 +69,7 @@ Launches the test runner with the Istanbul code coverage tool to get information
 
 ## Authentication
 
-First, the user should signup and then log in with his credentials, a token is returned as a response from the API, this token should be included in the header of all user coming requests as "header["api-jwt"]={token}" to verify authentication with the API.
+First, the user should sign-up and then log in with his credentials, a token is returned as a response from the API, this token should be included in the header of all user coming requests as "header["api-jwt"]={token}" to verify authentication with the API.
 
 <br>
 
@@ -90,7 +90,7 @@ Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/{userID}/note
 Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/20160313/note</code>
 <br>
 <br>
-The reponse:
+The response:
 <br>
 <pre>
 <code>[{
@@ -110,7 +110,7 @@ The reponse:
     "__v" : 0
 }]</code>
 </pre>
-The return is an array with 2 enrties (notes) added by the user with id 20160313
+The return is an array with 2 entries (notes) added by the user with id 20160313
 <br>
 <hr>
 
@@ -129,19 +129,19 @@ Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/note</code>
 <br>
 Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/note</code>
 <br>
-###### The request body should incude all the required values in The <a href="https://github.com/lwx-amr/To-Do-RESTFul-API/blob/master/src/repository/noteModel.js" target="_blank">Note Model</a>.
+###### The request body should include all the required values in The <a href="https://github.com/lwx-amr/To-Do-RESTFul-API/blob/master/src/repository/noteModel.js" target="_blank">Note Model</a>.
 <hr>
 
-#### PUT / update a certian note
+#### PUT / update a certain note
 
 Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/note/{note_id}</code>
 <br>
 Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/note/61ba5f6af2338ae9b7e8baad</code>
 <br>
-###### The request body should not incude all the required values just the modified values
+###### The request body should not include all the required values just the modified values
 <hr>
 
-#### DELETE / delete a certian note
+#### DELETE / delete a certain note
 
 Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/note/{note_id}</code>
 <br>
@@ -159,7 +159,7 @@ Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/auth/user</co
 <br>
 Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/auth/user</code>
 <br>
-###### The request body should incude all the required values in The <a href="https://github.com/lwx-amr/To-Do-RESTFul-API/blob/master/src/repository/userModel.js" target="_blank">User Model</a>.
+###### The request body should include all the required values in The <a href="https://github.com/lwx-amr/To-Do-RESTFul-API/blob/master/src/repository/userModel.js" target="_blank">User Model</a>.
 <hr>
 
 #### POST / login to get user token
@@ -168,13 +168,13 @@ Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/auth/token</c
 <br>
 Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/auth/token</code>
 <br>
-###### The request body should incude user credentials **(email, password)**.
+###### The request body should include user credentials **(email, password)**.
 <hr>
 
-#### DELETE / delete a certian user token
+#### DELETE / delete a certain user token
 
 Request base URL: <code>https://to-do-restapi.herokuapp.com/api/v1/auth/token</code>
 <br>
 Request example: <code>https://to-do-restapi.herokuapp.com/api/v1/auth/token</code>
 <br>
-###### The request header should incude user token in ['app-jwt'] attribute.
+###### The request header should include user token in ['app-jwt'] attribute.
