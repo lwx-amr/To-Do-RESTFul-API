@@ -34,7 +34,7 @@
     "cors": "^2.8.5",
     "debug": "^4.3.1",
     "dotenv": "^9.0.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-rate-limit": "^5.2.6",
     "helmet": "^4.6.0",
     "jsonwebtoken": "^8.5.1",
